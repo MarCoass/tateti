@@ -41,26 +41,38 @@ $juego = jugar();
 
 
 
-/*
+
 do {
-    $opcion = ...;
+    echo "Ingrese una opcion: ";
+    $opcion = trim(fgets(STDIN));
 
-    
+
     switch ($opcion) {
-        case 1: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 1
+        case 1:
+            //jugar al tateti
 
             break;
-        case 2: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
+        case 2:
+            //mostrar un juego
 
             break;
-        case 3: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
+        case 3:
+            //mostrar el primer juego ganador
 
             break;
-        
+        case 4:
+            //mostrar el porcentaje de juegos ganados
+            break;
+        case 5:
+            //mostrar resumen de jugador
+
+            break;
+        case 6:
+            //Mostrar listado de juegos Ordenado por jugador O
+            break;
+        case 0:
+            //salir
+            break;
             //...
     }
-} while ($opcion != X);
-*/
+} while ($opcion != 0);
