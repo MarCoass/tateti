@@ -44,7 +44,8 @@ function resultado($juego)
  * ¿podria ser que retorne el echo del final al programa principal? ¿esta bien que sea una function o ponemos el codigo directamente
  * en el case? 
  */
-function mostrarJuegoPorNumero($coleccionJuegos, $cantJuegos)
+
+function mostrarJuegoPorNumero($coleccionJuegos , $cantJuegos)
 {
     //Se solicita un numero de juego y se muestra la informacion de dicho juego
     do {
@@ -181,7 +182,7 @@ $cantJuegos = count($coleccionJuegos); //variable que almacena la cantidad de el
 
 //print_r($juego);
 
-
+print_r ($coleccionJuegos);
 
 
 do {
