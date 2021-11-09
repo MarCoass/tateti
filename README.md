@@ -8,4 +8,9 @@ Legajo: FAI-2542
 Mail: martina.coassin@est.fi.uncoma.edu.ar  
 Usuario Github: MarCoass
 
+- **Apablaza Tomas**  
+Legajo: FAI-2640  
+Mail: tomas.apablaza@est.fi.uncoma.edu.ar  
+Usuario Github: 
+
 
