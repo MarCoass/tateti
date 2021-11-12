@@ -125,9 +125,14 @@ function actualizarJugadores($coleccionJugadores, $juego)
 {
     //Se determina el resultado del juego y para sumar el punto donde corresponda
     $ganador = resultado($juego);
+  
 
-    actualizarDatosJugadores($juego["jugadorCruz"], $juego["puntosCruz"], $coleccionJugadores, $ganador, true);
-    actualizarDatosJugadores($juego["jugadorCirculo"], $juego["puntosCirculo"], $coleccionJugadores, $ganador, false);
+    $coleccionJugadores = actualizarDatosJugadores($juego["jugadorCruz"], $juego["puntosCruz"], $coleccionJugadores, $ganador, true);
+    $coleccionJugadores= actualizarDatosJugadores($juego["jugadorCirculo"], $juego["puntosCirculo"], $coleccionJugadores, $ganador, false);
+
+
+    return $coleccionJugadores;
+
 }
 
 function actualizarDatosJugadores($nombre, $puntos, $coleccionJugadores, $ganador, $esX)
@@ -145,8 +150,7 @@ function actualizarDatosJugadores($nombre, $puntos, $coleccionJugadores, $ganado
             ];
             //print_r($nuevoJugador);
             $coleccionJugadores[count($coleccionJugadores)] = $nuevoJugador;
-            print_r($coleccionJugadores[count($coleccionJugadores)-1]);
-
+            
         } else {
             $jugador = $coleccionJugadores[$posicion];
             $jugador["puntosAcumulados"] += $puntos;
@@ -163,6 +167,7 @@ function actualizarDatosJugadores($nombre, $puntos, $coleccionJugadores, $ganado
             }
         }
     } while ($posicion == -1);
+    return $coleccionJugadores;
 }
 
 /**************************************/
@@ -182,8 +187,10 @@ $cantJuegos = count($coleccionJuegos); //variable que almacena la cantidad de el
 
 
 $juegoActual = $coleccionJuegos[1];
-actualizarJugadores($coleccionJugadores, $juegoActual);
+$coleccionJugadores = actualizarJugadores($coleccionJugadores, $juegoActual);
 
+$juegoActual = $coleccionJuegos[2];
+$coleccionJugadores = actualizarJugadores($coleccionJugadores, $juegoActual);
 print_r($coleccionJugadores);
 
 /*
