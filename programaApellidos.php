@@ -10,9 +10,6 @@ include_once("tateti.php");
 
 /* Apablaza Tomas FAI-2640 
 * Coassin Fernandez Martina, FAI-2542, TUDW, martina.coassin@est.fi.uncoma.edu.ar, MarCoass []
-
-
-
 /**************************************/
 /***** DEFINICION DE FUNCIONES ********/
 /**************************************/
@@ -45,7 +42,7 @@ function resultado($juego)
  * en el case? 
  */
 
-function mostrarJuegoPorNumero($coleccionJuegos , $cantJuegos)
+function mostrarJuegoPorNumero($coleccionJuegos, $cantJuegos)
 {
     //Se solicita un numero de juego y se muestra la informacion de dicho juego
     do {
@@ -75,32 +72,30 @@ function mostrarJuegoPorNumero($coleccionJuegos , $cantJuegos)
     Jugador O: " . $juegoBuscado["jugadorCirculo"] . " obtuvo " . $juegoBuscado["puntosCirculo"] . "puntos.\n";
 }
 
-function cargarJuegos(){
+function cargarJuegos()
+{
 
-    $coleccionJuegos[0] = ["jugadorCruz"=> "pipo" , "jugadorCirculo" => "alex", "puntosCruz"=> 8, "puntosCirculo" => 3];
-    $coleccionJuegos[1] = ["jugadorCruz"=> "alex" , "jugadorCirculo" => "jose", "puntosCruz"=> 5, "puntosCirculo" => 0];
-    $coleccionJuegos[2] = ["jugadorCruz"=> "yiyo" , "jugadorCirculo" => "franco", "puntosCruz"=> 2, "puntosCirculo" => 3];
-    $coleccionJuegos[3] = ["jugadorCruz"=> "tomas" , "jugadorCirculo" => "fernando", "puntosCruz"=> 4, "puntosCirculo" => 1];
-    $coleccionJuegos[4] = ["jugadorCruz"=> "matias" , "jugadorCirculo" => "fer", "puntosCruz"=> 2, "puntosCirculo" => 6];
-    $coleccionJuegos[5] = ["jugadorCruz"=> "majo" , "jugadorCirculo" => "yone", "puntosCruz"=> 3, "puntosCirculo" => 1];
-    $coleccionJuegos[6] = ["jugadorCruz"=> "alberto" , "jugadorCirculo" => "tata", "puntosCruz"=> 0, "puntosCirculo" => 7];
-    $coleccionJuegos[7] = ["jugadorCruz"=> "yiyo" , "jugadorCirculo" => "sona", "puntosCruz"=> 3, "puntosCirculo" => 3];
-    $coleccionJuegos[8] = ["jugadorCruz"=> "alex" , "jugadorCirculo" => "pancho", "puntosCruz"=> 3, "puntosCirculo" => 4];
-    $coleccionJuegos[9] = ["jugadorCruz"=> "raul" , "jugadorCirculo" => "nacho", "puntosCruz"=> 6, "puntosCirculo" => 1];
-    $coleccionJuegos[10] = ["jugadorCruz"=> "tomas" , "jugadorCirculo" => "mar", "puntosCruz"=> 3, "puntosCirculo" => 4];
-    $coleccionJuegos[11] = ["jugadorCruz"=> "pipo" , "jugadorCirculo" => "ander", "puntosCruz"=> 1, "puntosCirculo" => 1];
-    $coleccionJuegos[12] = ["jugadorCruz"=> "jose" , "jugadorCirculo" => "franco", "puntosCruz"=> 4, "puntosCirculo" => 0];
-    $coleccionJuegos[13] = ["jugadorCruz"=> "paty" , "jugadorCirculo" => "mel", "puntosCruz"=> 2, "puntosCirculo" => 2];
-    $coleccionJuegos[14] = ["jugadorCruz"=> "nacho" , "jugadorCirculo" => "mauro", "puntosCruz"=> 2, "puntosCirculo" => 4];
-    
-return $coleccionJuegos;
+    $coleccionJuegos[0] = ["jugadorCruz" => "pipo", "jugadorCirculo" => "alex", "puntosCruz" => 8, "puntosCirculo" => 3];
+    $coleccionJuegos[1] = ["jugadorCruz" => "alex", "jugadorCirculo" => "jose", "puntosCruz" => 5, "puntosCirculo" => 0];
+    $coleccionJuegos[2] = ["jugadorCruz" => "yiyo", "jugadorCirculo" => "franco", "puntosCruz" => 2, "puntosCirculo" => 3];
+    $coleccionJuegos[3] = ["jugadorCruz" => "tomas", "jugadorCirculo" => "fernando", "puntosCruz" => 4, "puntosCirculo" => 1];
+    $coleccionJuegos[4] = ["jugadorCruz" => "matias", "jugadorCirculo" => "fer", "puntosCruz" => 2, "puntosCirculo" => 6];
+    $coleccionJuegos[5] = ["jugadorCruz" => "majo", "jugadorCirculo" => "yone", "puntosCruz" => 3, "puntosCirculo" => 1];
+    $coleccionJuegos[6] = ["jugadorCruz" => "alberto", "jugadorCirculo" => "tata", "puntosCruz" => 0, "puntosCirculo" => 7];
+    $coleccionJuegos[7] = ["jugadorCruz" => "yiyo", "jugadorCirculo" => "sona", "puntosCruz" => 3, "puntosCirculo" => 3];
+    $coleccionJuegos[8] = ["jugadorCruz" => "alex", "jugadorCirculo" => "pancho", "puntosCruz" => 3, "puntosCirculo" => 4];
+    $coleccionJuegos[9] = ["jugadorCruz" => "raul", "jugadorCirculo" => "nacho", "puntosCruz" => 6, "puntosCirculo" => 1];
+    $coleccionJuegos[10] = ["jugadorCruz" => "tomas", "jugadorCirculo" => "mar", "puntosCruz" => 3, "puntosCirculo" => 4];
+    $coleccionJuegos[11] = ["jugadorCruz" => "pipo", "jugadorCirculo" => "ander", "puntosCruz" => 1, "puntosCirculo" => 1];
+    $coleccionJuegos[12] = ["jugadorCruz" => "jose", "jugadorCirculo" => "franco", "puntosCruz" => 4, "puntosCirculo" => 0];
+    $coleccionJuegos[13] = ["jugadorCruz" => "paty", "jugadorCirculo" => "mel", "puntosCruz" => 2, "puntosCirculo" => 2];
+    $coleccionJuegos[14] = ["jugadorCruz" => "nacho", "jugadorCirculo" => "mauro", "puntosCruz" => 2, "puntosCirculo" => 4];
 
+    return $coleccionJuegos;
 }
 
-function juegoGanador($primerGanador){
-
-
-
+function juegoGanador($primerGanador)
+{
 }
 
 /**
@@ -112,7 +107,7 @@ function posicionJugador($nombre, $coleccionJugadores)
     $i = 0;
     $posicion = -1;
     while ($i < $cantJugadores) {
-        if ($cantJugadores[$i][$nombre] == $nombre) {
+        if ($cantJugadores[$i]["nombre"] == $nombre) { //aca hay un problema no se que 
             $posicion = $i;
         } else {
             $i++;
@@ -134,10 +129,19 @@ function actualizarJugadores($coleccionJugadores, $juego)
          * El do se ejecuta hasta que la posicion del jugador sea distinta de -1, por lo que en caso de que el jugador no se encuentre
          * en coleccionJugadores, crea el array del nuevo jugador inicializando todos los valores en 0 y con su nombre, y luego
          * se vuelve a buscar su posicion para sumar los valores correspondientes.
-        */
+         */
         do {
             $posicion = posicionJugador($juego[$i], $coleccionJugadores);
-            if ($posicion != -1) {
+            if ($posicion == -1 || count($coleccionJugadores) == 0) {
+                $nuevoJugador = [
+                    "nombre" => $juego[$i],
+                    "juegosGanados" => 0,
+                    "juegosPerdidos" => 0,
+                    "juegosEmpatados" => 0,
+                    "puntosAcumulados" => 0,
+                ];
+                $coleccionJugadores[count($coleccionJugadores)] = $nuevoJugador;
+            } //else
                 $jugador = $coleccionJugadores[$posicion];
                 $jugador["puntosAcumulados"] += $juego[$i + 2];
                 if ($resultado == "X" && $i == 0) {
@@ -150,16 +154,7 @@ function actualizarJugadores($coleccionJugadores, $juego)
                     $jugador["juegosGanados"]++;
                 } else {
                     $jugador["juegosEmpatados"]++;
-                }
-            } else {
-                $nuevoJugador = [
-                    "nombre" => $juego[$i],
-                    "juegosGanados" => 0,
-                    "juegosPerdidos" => 0,
-                    "juegosEmpatados" => 0,
-                    "puntosAcumulados" => 0,
-                ];
-                $coleccionJugadores[count($coleccionJugadores)] = $nuevoJugador;
+                
             }
         } while ($posicion != -1);
     }
@@ -180,9 +175,13 @@ $cantJuegos = count($coleccionJuegos); //variable que almacena la cantidad de el
 //Proceso:
 
 
-//print_r($juego);
+//print_r($coleccionJuegos); estaba testeando porque no carga los jugadores, help 
+$juegoActual = $coleccionJuegos[1];
+actualizarJugadores($coleccionJugadores, $juego);
+print_r($coleccionJugadores);
 
-print_r ($coleccionJuegos);
+
+/*
 
 
 do {
@@ -230,3 +229,4 @@ do {
             //...
     }
 } while ($opcion != 7);
+*/
