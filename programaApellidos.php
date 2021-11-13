@@ -78,28 +78,34 @@ function cargarJuegos()
     $coleccionJuegos[9] = ["jugadorCruz" => "raul", "jugadorCirculo" => "nacho", "puntosCruz" => 6, "puntosCirculo" => 1];
     $coleccionJuegos[10] = ["jugadorCruz" => "tomas", "jugadorCirculo" => "mar", "puntosCruz" => 3, "puntosCirculo" => 4];
     $coleccionJuegos[11] = ["jugadorCruz" => "pipo", "jugadorCirculo" => "ander", "puntosCruz" => 1, "puntosCirculo" => 1];
-    $coleccionJuegos[12] = ["jugadorCruz" => "jose", "jugadorCirculo" => "franco", "puntosCruz" => 4, "puntosCirculo" => 0];
+    $coleccionJuegos[12] = ["jugadorCruz" => "jose", "jugadorCirculo" => "franco", "puntosCruz" => 4, "puntosCirculo" => 5];
     $coleccionJuegos[13] = ["jugadorCruz" => "paty", "jugadorCirculo" => "mel", "puntosCruz" => 2, "puntosCirculo" => 2];
     $coleccionJuegos[14] = ["jugadorCruz" => "nacho", "jugadorCirculo" => "mauro", "puntosCruz" => 2, "puntosCirculo" => 4];
 
     return $coleccionJuegos;
 }
 
-function juegoGanador($coleccionJuegos, $cantJuegos, $jugadors)
-{
+ function juegoGanador($coleccionJuegos, $cantJuegos, $jugadors){
+    $primerGanador = true;
     $i = 0;
+
+    do{
     for ($i >= 0; $i <= $cantJuegos - 1; $i++) {
         $juegoBuscado = $coleccionJuegos[$i];
 
-        if (($juegoBuscado["jugadorCruz"] == "yone" || $juegoBuscado["jugadorCirculo"] == "yone")) {
-     if (($juegoBuscado["puntosCruz"] > $juegoBuscado["puntosCirculo"]){
+        if (($juegoBuscado["jugadorCruz"] == $jugadors || $juegoBuscado["jugadorCirculo"] == $jugadors)) {
+     if (((($juegoBuscado["puntosCruz"] > $juegoBuscado["puntosCirculo"]) & $juegoBuscado["jugadorCruz"] == $jugadors)) || ((($juegoBuscado["puntosCirculo"]) > $juegoBuscado["puntosCruz"]) & $juegoBuscado["jugadorCirculo"] == $jugadors)) {
 
-
-            mostrarJuegoPorNumero($juegoBuscado, $i)
+            mostrarJuegoPorNumero($juegoBuscado, $i);
+$primerGanador = false;
         }
         }
     }
 }
+    while($primerGanador);
+
+
+    }
     /**
      * Busca un jugador por su nombre, si se encuentra devuelve su posicion, si no lo encuentra devuelve -1
      */
@@ -222,10 +228,10 @@ echo "hola";
                 break;
             case 3:
                 //mostrar el primer juego ganador
-echo "Ingrese el nombre de un jugador: ";
-$jugadors = trim(fgets(STDIN));
+                echo "Ingrese el nombre de un jugador: ";
+                 $jugadors = trim(fgets(STDIN));
 
-juegoGanador($coleccionJuegos, $cantJuegos, $jugadors);
+                juegoGanador($coleccionJuegos, $cantJuegos, $jugadors);
 
                 break;
             case 4:
@@ -244,3 +250,4 @@ juegoGanador($coleccionJuegos, $cantJuegos, $jugadors);
                 //...
         }
     } while ($opcion != 7);
+
