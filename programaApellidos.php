@@ -23,6 +23,7 @@ include_once("tateti.php");
  * O --> Gano Circulo
  * E --> Empate 
  */
+
 function resultado($juego)
 {
     if ($juego["puntosCruz"] > $juego["puntosCirculo"]) {
@@ -45,7 +46,7 @@ function resultado($juego)
  * en el case? 
  */
 
-function mostrarJuegoPorNumero($juegoBuscado)
+function mostrarJuegoPorNumero($juegoBuscado, $numeroJuego)
 {
 
     //comparo los puntajes para ver quien gano
@@ -57,7 +58,7 @@ function mostrarJuegoPorNumero($juegoBuscado)
         $resultado = "(empate)";
     }
 
-    echo "Juego TATETI: " . $juegoBuscado . " " . $resultado . "
+    echo "Juego TATETI: " . $numeroJuego . " " . $resultado . "
     Jugador X: " . $juegoBuscado["jugadorCruz"] . " obtuvo " . $juegoBuscado["puntosCruz"] . " puntos.
     Jugador O: " . $juegoBuscado["jugadorCirculo"] . " obtuvo " . $juegoBuscado["puntosCirculo"] . "puntos.\n";
 }
@@ -84,28 +85,21 @@ function cargarJuegos()
     return $coleccionJuegos;
 }
 
-function juegoGanador($coleccionJuegos, $cantJuegos)
+function juegoGanador($coleccionJuegos, $cantJuegos, $jugadors)
 {
     $i = 0;
-    for ($i >= 0; $i <= $cantJuegos; $i++) {
+    for ($i >= 0; $i <= $cantJuegos - 1; $i++) {
         $juegoBuscado = $coleccionJuegos[$i];
 
-        if ($juegoBuscado["jugadorCruz" == "yone" || "jugadorCirculo" == "yone"]) {
+        if (($juegoBuscado["jugadorCruz"] == "yone" || $juegoBuscado["jugadorCirculo"] == "yone")) {
+     if (($juegoBuscado["puntosCruz"] > $juegoBuscado["puntosCirculo"]){
 
-            if ($juegoBuscado["puntosCruz"] > $juegoBuscado["puntosCirculo"]) {
-                $resultado = "(gano X)";
-            } elseif ($juegoBuscado["puntosCruz"] < $juegoBuscado["puntosCirculo"]) {
-                $resultado = "(gano O)";
-            } else {
-                $resultado = "(empate)";
-            }
 
-            echo ("Juego TATETI: " . $i  . "($resultado)  ");
-            echo ("Jugador X: " . $juegoBuscado["jugadorCruz"] . " obtuvo " . $juegoBuscado["puntosCruz"] . "puntos");
-            echo ("Jugador O: " . $juegoBuscado["jugadorCirculo"] . " obtuvo " . $juegoBuscado["puntosCirculo"] . "puntos.\n");
+            mostrarJuegoPorNumero($juegoBuscado, $i)
+        }
         }
     }
-
+}
     /**
      * Busca un jugador por su nombre, si se encuentra devuelve su posicion, si no lo encuentra devuelve -1
      */
@@ -185,6 +179,7 @@ function juegoGanador($coleccionJuegos, $cantJuegos)
 
     //print_r($juego);
 
+echo "hola";
 
 
     do {
@@ -223,10 +218,14 @@ function juegoGanador($coleccionJuegos, $cantJuegos)
                 } while ($continuar);
                 //guardo el juego solicitado en una variable
                 $juegoBuscado = $coleccionJuegos[$numeroJuego - 1];
-                mostrarJuegoPorNumero($juegoBuscado);
+                mostrarJuegoPorNumero($juegoBuscado, $numeroJuego);
                 break;
             case 3:
                 //mostrar el primer juego ganador
+echo "Ingrese el nombre de un jugador: ";
+$jugadors = trim(fgets(STDIN));
+
+juegoGanador($coleccionJuegos, $cantJuegos, $jugadors);
 
                 break;
             case 4:
@@ -245,4 +244,3 @@ function juegoGanador($coleccionJuegos, $cantJuegos)
                 //...
         }
     } while ($opcion != 7);
-}
