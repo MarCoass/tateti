@@ -20,6 +20,7 @@ include_once("tateti.php");
  * O --> Gano Circulo
  * E --> Empate 
  */
+
 function resultado($juego)
 {
     if ($juego["puntosCruz"] > $juego["puntosCirculo"]) {
@@ -42,22 +43,9 @@ function resultado($juego)
  * en el case? 
  */
 
-function mostrarJuegoPorNumero($coleccionJuegos, $cantJuegos)
-{
-    //Se solicita un numero de juego y se muestra la informacion de dicho juego
-    do {
-        echo "Ingrese un numero de juego entre 1 y " . $cantJuegos . " : ";
-        $numeroJuego = trim(fgets(STDIN));
-        if ($numeroJuego < 1 || $numeroJuego > $cantJuegos) {
-            $continuar = true;
-            echo "El juego buscado no existe.\n";
-        } else {
-            $continuar = false;
-        }
-    } while ($continuar);
+function mostrarJuegoPorNumero($coleccionJuegos, $numJuego){
 
-    //guardo el juego solicitado en una variable
-    $juegoBuscado = $coleccionJuegos[$numeroJuego - 1];
+    $juegoBuscado = $coleccionJuegos[$numJuego];
     //comparo los puntajes para ver quien gano
     if ($juegoBuscado["puntosCruz"] > $juegoBuscado["puntosCirculo"]) {
         $resultado = "(gano X)";
@@ -67,10 +55,12 @@ function mostrarJuegoPorNumero($coleccionJuegos, $cantJuegos)
         $resultado = "(empate)";
     }
 
-    echo "Juego TATETI: " . $numeroJuego . " " . $resultado . "
+    echo "Juego TATETI: " . $numJuego . " " . $resultado . "
     Jugador X: " . $juegoBuscado["jugadorCruz"] . " obtuvo " . $juegoBuscado["puntosCruz"] . " puntos.
     Jugador O: " . $juegoBuscado["jugadorCirculo"] . " obtuvo " . $juegoBuscado["puntosCirculo"] . "puntos.\n";
 }
+//Carga inicial de datos
+
 
 function cargaInicialJuegos()
 {
@@ -87,11 +77,31 @@ function cargaInicialJuegos()
     $coleccionJuegos[9] = ["jugadorCruz" => "RAUL", "jugadorCirculo" => "NACHO", "puntosCruz" => 6, "puntosCirculo" => 1];
     $coleccionJuegos[10] = ["jugadorCruz" => "TOMAS", "jugadorCirculo" => "MAR", "puntosCruz" => 3, "puntosCirculo" => 4];
     $coleccionJuegos[11] = ["jugadorCruz" => "PIPO", "jugadorCirculo" => "ANDER", "puntosCruz" => 1, "puntosCirculo" => 1];
-    $coleccionJuegos[12] = ["jugadorCruz" => "JOSE", "jugadorCirculo" => "FRANCO", "puntosCruz" => 4, "puntosCirculo" => 0];
+    $coleccionJuegos[12] = ["jugadorCruz" => "JOSE", "jugadorCirculo" => "FRANCO", "puntosCruz" => 4, "puntosCirculo" => 5];
     $coleccionJuegos[13] = ["jugadorCruz" => "PATY", "jugadorCirculo" => "MEL", "puntosCruz" => 2, "puntosCirculo" => 2];
     $coleccionJuegos[14] = ["jugadorCruz" => "NACHO", "jugadorCirculo" => "MAURO", "puntosCruz" => 2, "puntosCirculo" => 4];
 
     return $coleccionJuegos;
+}
+
+ function juegoGanador($coleccionJuegos, $cantJuegos, $jugadors){
+    $primerGanador = true;
+    $i = 0;
+
+    do{
+    for ($i >= 0; $i <= $cantJuegos - 1; $i++) {
+        $juegoBuscado = $coleccionJuegos[$i];
+
+        if (($juegoBuscado["jugadorCruz"] == $jugadors || $juegoBuscado["jugadorCirculo"] == $jugadors)) {
+     if (((($juegoBuscado["puntosCruz"] > $juegoBuscado["puntosCirculo"]) & $juegoBuscado["jugadorCruz"] == $jugadors)) || ((($juegoBuscado["puntosCirculo"]) > $juegoBuscado["puntosCruz"]) & $juegoBuscado["jugadorCirculo"] == $jugadors)) {
+
+            mostrarJuegoPorNumero($juegoBuscado, $i);
+$primerGanador = false;
+        }
+        }
+    }
+}
+    while($primerGanador);
 }
 
 function cargaInicialJugadores($coleccionJuegos){
@@ -105,10 +115,6 @@ function cargaInicialJugadores($coleccionJuegos){
         print_r($jugadores[$i]);
     }
     return $jugadores;
-}
-
-function juegoGanador($primerGanador)
-{
 }
 
 /**
@@ -127,10 +133,9 @@ function posicionJugador($nombre, $coleccionJugadores)
         } else {
             $i++;
         }
+        return $posicion;
     }
-    return $posicion;
 }
-
 /**
  * Funcion que actualiza la coleccion de jugadores, agrega un nuevo jugador en caso de ser necesario.
  */
@@ -186,14 +191,14 @@ function actualizarDatosJugadores($nombre, $puntos, $coleccionJugadores, $ganado
     return $coleccionJugadores;
 }
 
-/**************************************/
-/*********** PROGRAMA PRINCIPAL *******/
-/**************************************/
+    /**************************************/
+    /*********** PROGRAMA PRINCIPAL *******/
+    /**************************************/
 
-//Declaración de variables:
-/**ENTERO $cantJuegos */
-$coleccionJuegos = array(); //array para almacenar la informacion de los juegos
-$coleccionJugadores = array();
+    //Declaración de variables:
+    /**ENTERO $cantJuegos */
+    $coleccionJuegos = array(); //array para almacenar la informacion de los juegos
+    $coleccionJugadores = array();
 
 //Inicialización de variables:
 $coleccionJuegos = cargaInicialJuegos();
@@ -205,11 +210,11 @@ $cantJuegos = count($coleccionJuegos); //variable que almacena la cantidad de el
 
 //print_r($coleccionJugadores);
 
-/*
 
 
-do {
-    echo " MENU: 
+
+    do {
+        echo " MENU: 
         1)Jugar al tateti.
         2)Mostrar un juego.
         3)Mostrar el primer juego ganador.
@@ -231,7 +236,9 @@ do {
             $cantJuegos++;
             break;
         case 2:
-            mostrarJuegoPorNumero($coleccionJuegos, $cantJuegos);
+            echo "Ingrese un numero de juego: ";
+            $numJuego = trim(fgets(STDIN));
+            mostrarJuegoPorNumero($coleccionJuegos, $cantJuegos, $numJuego);
             break;
         case 3:
             //mostrar el primer juego ganador
@@ -253,4 +260,4 @@ do {
             //...
     }
 } while ($opcion != 7);
-*/
+
