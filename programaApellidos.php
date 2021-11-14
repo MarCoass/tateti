@@ -43,7 +43,8 @@ function resultado($juego)
  * en el case? 
  */
 
-function mostrarJuegoPorNumero($coleccionJuegos, $numJuego){
+function mostrarJuegoPorNumero($coleccionJuegos, $numJuego)
+{
 
     $juegoBuscado = $coleccionJuegos[$numJuego];
     //comparo los puntajes para ver quien gano
@@ -75,47 +76,32 @@ function cargaInicialJuegos()
     $coleccionJuegos[7] = ["jugadorCruz" => "YIYO", "jugadorCirculo" => "SONA", "puntosCruz" => 3, "puntosCirculo" => 3];
     $coleccionJuegos[8] = ["jugadorCruz" => "ALEX", "jugadorCirculo" => "PANCHO", "puntosCruz" => 3, "puntosCirculo" => 4];
     $coleccionJuegos[9] = ["jugadorCruz" => "RAUL", "jugadorCirculo" => "NACHO", "puntosCruz" => 6, "puntosCirculo" => 1];
-    $coleccionJuegos[10] = ["jugadorCruz" => "TOMAS", "jugadorCirculo" => "MAR", "puntosCruz" => 3, "puntosCirculo" => 4];
-    $coleccionJuegos[11] = ["jugadorCruz" => "PIPO", "jugadorCirculo" => "ANDER", "puntosCruz" => 1, "puntosCirculo" => 1];
-    $coleccionJuegos[12] = ["jugadorCruz" => "JOSE", "jugadorCirculo" => "FRANCO", "puntosCruz" => 4, "puntosCirculo" => 5];
-    $coleccionJuegos[13] = ["jugadorCruz" => "PATY", "jugadorCirculo" => "MEL", "puntosCruz" => 2, "puntosCirculo" => 2];
-    $coleccionJuegos[14] = ["jugadorCruz" => "NACHO", "jugadorCirculo" => "MAURO", "puntosCruz" => 2, "puntosCirculo" => 4];
+
 
     return $coleccionJuegos;
 }
 
- function juegoGanador($coleccionJuegos, $cantJuegos, $jugadors){
+function juegoGanador($coleccionJuegos, $cantJuegos, $jugadors)
+{
     $primerGanador = true;
     $i = 0;
 
-    do{
-    for ($i >= 0; $i <= $cantJuegos - 1; $i++) {
-        $juegoBuscado = $coleccionJuegos[$i];
+    do {
+        for ($i >= 0; $i <= $cantJuegos - 1; $i++) {
+            $juegoBuscado = $coleccionJuegos[$i];
 
-        if (($juegoBuscado["jugadorCruz"] == $jugadors || $juegoBuscado["jugadorCirculo"] == $jugadors)) {
-     if (((($juegoBuscado["puntosCruz"] > $juegoBuscado["puntosCirculo"]) & $juegoBuscado["jugadorCruz"] == $jugadors)) || ((($juegoBuscado["puntosCirculo"]) > $juegoBuscado["puntosCruz"]) & $juegoBuscado["jugadorCirculo"] == $jugadors)) {
+            if (($juegoBuscado["jugadorCruz"] == $jugadors || $juegoBuscado["jugadorCirculo"] == $jugadors)) {
+                if (((($juegoBuscado["puntosCruz"] > $juegoBuscado["puntosCirculo"]) & $juegoBuscado["jugadorCruz"] == $jugadors)) || ((($juegoBuscado["puntosCirculo"]) > $juegoBuscado["puntosCruz"]) & $juegoBuscado["jugadorCirculo"] == $jugadors)) {
 
-            mostrarJuegoPorNumero($juegoBuscado, $i);
-$primerGanador = false;
+                    mostrarJuegoPorNumero($juegoBuscado, $i);
+                    $primerGanador = false;
+                }
+            }
         }
-        }
-    }
-}
-    while($primerGanador);
+    } while ($primerGanador);
 }
 
-function cargaInicialJugadores($coleccionJuegos){
-    $jugadores = [];
-    $cantidadJuegos = count($coleccionJuegos);
-    for($i = 0; $i< $cantidadJuegos; $i++){
-        echo "
-        ACA: " . $i;
-        $juego = $coleccionJuegos[$i];
-        $jugadores = actualizarJugadores($jugadores, $juego);
-        print_r($jugadores[$i]);
-    }
-    return $jugadores;
-}
+
 
 /**
  * Busca un jugador por su nombre, si se encuentra devuelve su posicion, si no lo encuentra devuelve -1
@@ -136,73 +122,20 @@ function posicionJugador($nombre, $coleccionJugadores)
         return $posicion;
     }
 }
-/**
- * Funcion que actualiza la coleccion de jugadores, agrega un nuevo jugador en caso de ser necesario.
- */
-function actualizarJugadores($coleccionJugadores, $juego)
-{
-    //Se determina el resultado del juego y para sumar el punto donde corresponda
-    $ganador = resultado($juego);
-
-    $coleccionJugadores = actualizarDatosJugadores($juego["jugadorCruz"], $juego["puntosCruz"], $coleccionJugadores, $ganador, true);
-    $coleccionJugadores = actualizarDatosJugadores($juego["jugadorCirculo"], $juego["puntosCirculo"], $coleccionJugadores, $ganador, false);
 
 
-    return $coleccionJugadores;
-}
+/**************************************/
+/*********** PROGRAMA PRINCIPAL *******/
+/**************************************/
 
-function actualizarDatosJugadores($nombre, $puntos, $coleccionJugadores, $ganador, $esX)
-{
-
-    do {
-        $posicion = posicionJugador($nombre, $coleccionJugadores);
-        if ($posicion == -1 || count($coleccionJugadores) == 0) {
-            $nuevoJugador = [
-                "nombre" => $nombre,
-                "juegosGanados" => 0,
-                "juegosPerdidos" => 0,
-                "juegosEmpatados" => 0,
-                "puntosAcumulados" => 0,
-            ];
-            //print_r($nuevoJugador);
-            $coleccionJugadores[count($coleccionJugadores)] = $nuevoJugador;
-        } else {
-
-            /**No entiendo por que si uso el siguiente codigo no se actualizan los valores en el array:
-             * $jugador = $coleccionJugadores[$posicion];
-             * $jugador[$puntaje] += $puntos;
-             */
-
-            $coleccionJugadores[$posicion]["puntosAcumulados"] += $puntos;
-            
-            if ($ganador == "X" && $esX) {
-                $coleccionJugadores[$posicion]["juegosGanados"]++;
-            } elseif ($ganador == "X" && !$esX) {
-                $coleccionJugadores[$posicion]["juegosPerdidos"]++;
-            } elseif ($ganador == "O" && $esX) {
-                $coleccionJugadores[$posicion]["juegosPerdidos"]++;
-            } elseif ($ganador == "O" && !$esX) {
-                $coleccionJugadores[$posicion]["juegosGanados"]++;
-            } else {
-                $coleccionJugadores[$posicion]["juegosEmpatados"]++;
-            }
-        }
-    } while ($posicion == -1);
-    return $coleccionJugadores;
-}
-
-    /**************************************/
-    /*********** PROGRAMA PRINCIPAL *******/
-    /**************************************/
-
-    //Declaración de variables:
-    /**ENTERO $cantJuegos */
-    $coleccionJuegos = array(); //array para almacenar la informacion de los juegos
-    $coleccionJugadores = array();
+//Declaración de variables:
+/**ENTERO $cantJuegos */
+$coleccionJuegos = array(); //array para almacenar la informacion de los juegos
+$coleccionJugadores = array();
 
 //Inicialización de variables:
 $coleccionJuegos = cargaInicialJuegos();
-$coleccionJugadores = cargaInicialJugadores($coleccionJuegos);
+
 $cantJuegos = count($coleccionJuegos); //variable que almacena la cantidad de elementos del array de juegos para saber en que indice insertar el nuevo
 //Proceso:
 
@@ -213,8 +146,8 @@ $cantJuegos = count($coleccionJuegos); //variable que almacena la cantidad de el
 
 
 
-    do {
-        echo " MENU: 
+do {
+    echo " MENU: 
         1)Jugar al tateti.
         2)Mostrar un juego.
         3)Mostrar el primer juego ganador.
@@ -232,7 +165,6 @@ $cantJuegos = count($coleccionJuegos); //variable que almacena la cantidad de el
             imprimirResultado($juego);
             //Se almacena la informacion del juego en el array $coleccionJuegos
             $coleccionJuegos[$cantJuegos] = $juego;
-            actualizarJugadores($coleccionJugadores, $juego);
             $cantJuegos++;
             break;
         case 2:
@@ -260,4 +192,3 @@ $cantJuegos = count($coleccionJuegos); //variable que almacena la cantidad de el
             //...
     }
 } while ($opcion != 7);
-
