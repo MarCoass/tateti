@@ -57,7 +57,7 @@ function mostrarJuegoPorNumero($coleccionJuegos, $numJuego){
 
     echo "Juego TATETI: " . $numJuego . " " . $resultado . "
     Jugador X: " . $juegoBuscado["jugadorCruz"] . " obtuvo " . $juegoBuscado["puntosCruz"] . " puntos.
-    Jugador O: " . $juegoBuscado["jugadorCirculo"] . " obtuvo " . $juegoBuscado["puntosCirculo"] . "puntos.\n";
+    Jugador O: " . $juegoBuscado["jugadorCirculo"] . " obtuvo " . $juegoBuscado["puntosCirculo"] . " puntos.\n";
 }
 //Carga inicial de datos
 
@@ -93,7 +93,7 @@ function cargaInicialJuegos()
         $juegoBuscado = $coleccionJuegos[$i];
 
         if (($juegoBuscado["jugadorCruz"] == $jugadors || $juegoBuscado["jugadorCirculo"] == $jugadors)) {
-     if (((($juegoBuscado["puntosCruz"] > $juegoBuscado["puntosCirculo"]) & $juegoBuscado["jugadorCruz"] == $jugadors)) || ((($juegoBuscado["puntosCirculo"]) > $juegoBuscado["puntosCruz"]) & $juegoBuscado["jugadorCirculo"] == $jugadors)) {
+     if (((resultado($juegoBuscado) == "X" & $juegoBuscado["jugadorCruz"] == $jugadors)) || ((resultado($juegoBuscado) == "O" & $juegoBuscado["jugadorCirculo"] == $jugadors))) {
 
             mostrarJuegoPorNumero($juegoBuscado, $i);
 $primerGanador = false;
