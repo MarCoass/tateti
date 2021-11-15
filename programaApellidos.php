@@ -93,7 +93,7 @@ function cargarJuegos()
     $coleccionJuegos[2] = ["jugadorCruz" => "YIYO", "jugadorCirculo" => "FRANCO", "puntosCruz" => 2, "puntosCirculo" => 3];
     $coleccionJuegos[3] = ["jugadorCruz" => "TOMAS", "jugadorCirculo" => "FERNANDO", "puntosCruz" => 4, "puntosCirculo" => 1];
     $coleccionJuegos[4] = ["jugadorCruz" => "MATIAS", "jugadorCirculo" => "FER", "puntosCruz" => 2, "puntosCirculo" => 6];
-    $coleccionJuegos[5] = ["jugadorCruz" => "MAJO", "jugadorCirculo" => "YONE", "puntosCruz" => 3, "puntosCirculo" => 1];
+    $coleccionJuegos[5] = ["jugadorCruz" => "MAJO", "jugadorCirculo" => "PIPO", "puntosCruz" => 3, "puntosCirculo" => 1];
     $coleccionJuegos[6] = ["jugadorCruz" => "ALBERTO", "jugadorCirculo" => "TATA", "puntosCruz" => 0, "puntosCirculo" => 7];
     $coleccionJuegos[7] = ["jugadorCruz" => "YIYO", "jugadorCirculo" => "SONA", "puntosCruz" => 3, "puntosCirculo" => 3];
     $coleccionJuegos[8] = ["jugadorCruz" => "ALEX", "jugadorCirculo" => "PANCHO", "puntosCruz" => 3, "puntosCirculo" => 4];
@@ -110,9 +110,10 @@ function juegoGanador($coleccionJuegos, $jugadorPrimeraGanada)
 {
     $acum = count($coleccionJuegos);
     $primerGanador = true;
+    $i = 0;
 
     do {
-        for ($i = 0; $i <= $acum - 1; $i++) {
+        for ($i >= 0; $i <= $acum - 1; $i++) {
             $juegoBuscado = $coleccionJuegos[$i];
 
             if (($juegoBuscado["jugadorCruz"] == $jugadorPrimeraGanada || $juegoBuscado["jugadorCirculo"] == $jugadorPrimeraGanada)) {
@@ -132,12 +133,73 @@ function juegoGanador($coleccionJuegos, $jugadorPrimeraGanada)
  * @param array $juego
  * @return array
  */
-function agregarJuego($coleccionJuegos, $juego){
+function agregarJuego($coleccionJuegos, $juego)
+{
     $cantJuegos = count($coleccionJuegos);
     $coleccionJuegos[$cantJuegos] = $juego;
     return $coleccionJuegos;
 }
 
+/**
+ * Función que dada la colección de juegos y el nombre de un jugador, retorna el resumen del jugador segun la explicacion 2, punto b.
+ * Se llama desde el case 5 del programa principal.
+ * @param array $coleccionJuegos
+ * @param string $nombre
+ * @return array
+ */
+function resumenJugador($coleccionJuegos, $nombre)
+{
+    $resumen = [
+        "nombre" => $nombre,
+        "juegosGanados" => 0,
+        "juegosPerdidos" => 0,
+        "juegosEmpatados" => 0,
+        "puntosAcumulados" => 0,
+    ];
+
+    $cantJuegos = count($coleccionJuegos);
+
+    for ($i = 0; $i < $cantJuegos; $i++) {
+        $juegoActual = $coleccionJuegos[$i];
+        if ($juegoActual["jugadorCruz"] == $nombre || $juegoActual["jugadorCirculo"] == $nombre) {
+
+            $esX = $juegoActual["jugadorCruz"] == $nombre; //Uso esta variable para saber si el nombre corresponde a jugadorCruz o jugadorCirculo.
+            $ganador = resultado($juegoActual);
+
+            if ($ganador == "X" && $esX) {
+                $resumen["juegosGanados"]++;
+            } elseif ($ganador == "X" && !$esX) {
+                $resumen["juegosPerdidos"]++;
+            } elseif ($ganador == "O" && $esX) {
+                $resumen["juegosPerdidos"]++;
+            } elseif ($ganador == "O" && !$esX) {
+                $resumen["juegosGanados"]++;
+            } else {
+                $resumen["juegosEmpatados"]++;
+            }
+
+            $resumen["puntosAcumulados"] += $esX ? $juegoActual["puntosCruz"] : $juegoActual["puntosCirculo"];
+        }
+    }
+
+    return $resumen;
+}
+
+/**
+ * Muestra por pantalla el resumen de un jugador.
+ * @param array $resumen
+ */
+function imprimirResumen($resumen)
+{
+    echo "***********************************
+Jugador: " . $resumen["nombre"] . ".
+Gano: " . $resumen["juegosGanados"] . " juegos.
+Perdio: " . $resumen["juegosPerdidos"] . " juegos. 
+Empato: " . $resumen["juegosEmpatados"] . " juegos. 
+Total de puntos acumulados: " . $resumen["puntosAcumulados"] . " puntos.
+***********************************
+                ";
+}
 
 /**************************************/
 /*********** PROGRAMA PRINCIPAL *******/
@@ -146,18 +208,12 @@ function agregarJuego($coleccionJuegos, $juego){
 //Declaración de variables:
 /**ENTERO $cantJuegos */
 $coleccionJuegos = array(); //array para almacenar la informacion de los juegos
-$coleccionJugadores = array();
+
 
 //Inicialización de variables:
 $coleccionJuegos = cargarJuegos();
 
 //Proceso:
-
-
-
-//print_r($coleccionJugadores);
-
-
 
 
 do {
@@ -180,10 +236,10 @@ do {
             break;
         case 3:
             //mostrar el primer juego ganador
-echo "Ingrese el nombre del jugador a buscar: ";
-$jugadorPrimeraGanada = trim(fgets(STDIN));
+            echo "Ingrese el nombre del jugador a buscar: ";
+            $jugadorPrimeraGanada = trim(fgets(STDIN));
 
-juegoGanador($coleccionJuegos, $jugadorPrimeraGanada);
+            juegoGanador($coleccionJuegos, $jugadorPrimeraGanada);
             break;
         case 4:
             //mostrar el porcentaje de juegos ganados
