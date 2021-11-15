@@ -200,6 +200,37 @@ Total de puntos acumulados: " . $resumen["puntosAcumulados"] . " puntos.
 ***********************************
                 ";
 }
+/**
+ * Funcion de comparacion, compara alfabeticamente los nombres de los jugadorCirculo
+ * @param array @juegoA
+ * @param array @juegoB
+ * @return int
+ */
+function cmp($juegoA, $juegoB)
+{
+    $a = $juegoA["jugadorCirculo"];
+    $b = $juegoB["jugadorCirculo"];
+    if ($a == $b) {
+        $orden = 0;
+    } elseif ($a < $b) {
+        $orden = -1;
+    } else {
+        $orden = 1;
+    }
+
+    return $orden;
+}
+
+/**
+ * Funcion que ordena la coleccion de juegos alfabeticamente segun el jugador circulo.
+ * @param array $coleccionJuegos
+ */
+function ordenarJuegos($coleccionJuegos)
+{
+    //uasort ordena al array con una funcion de comparacion ya definida (cmp) y mantiene la asociacion de indices.
+    uasort($coleccionJuegos, 'cmp');
+    print_r($coleccionJuegos);
+}
 
 /**************************************/
 /*********** PROGRAMA PRINCIPAL *******/
@@ -253,10 +284,7 @@ do {
             break;
         case 6:
             //Mostrar listado de juegos Ordenado por jugador O
+            ordenarJuegos($coleccionJuegos);
             break;
-        case 7:
-            //salir
-            break;
-            //...
     }
 } while ($opcion != 7);
