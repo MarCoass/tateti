@@ -126,7 +126,17 @@ function juegoGanador($coleccionJuegos, $cantJuegos, $jugadores)
     } while ($primerGanador);
 }
 
-
+/**
+ * Agrega un nuevo juego a la coleccion y retorna la coleccion actualizada.
+ * @param array $coleccionJuegos
+ * @param array $juego
+ * @return array
+ */
+function agregarJuego($coleccionJuegos, $juego){
+    $cantJuegos = count($coleccionJuegos);
+    $coleccionJuegos[$cantJuegos] = $juego;
+    return $coleccionJuegos;
+}
 
 
 /**************************************/
@@ -159,9 +169,7 @@ do {
             //Se inicia un juego de tateti
             $juego = jugar();
             imprimirResultado($juego);
-            //Se almacena la informacion del juego en el array $coleccionJuegos
-            $coleccionJuegos[$cantJuegos] = $juego;
-            $cantJuegos++;
+            $coleccionJuegos = agregarJuego($coleccionJuegos, $juego);
             break;
         case 2:
             echo "Ingrese un numero de juego: ";
