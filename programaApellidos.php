@@ -85,7 +85,7 @@ function mostrarJuegoPorNumero($coleccionJuegos, $numJuego)
  * Inicializa una estructura con datos con ejemplos de juegos y la retorna;
  * @return array
  */
-function cargaInicialJuegos()
+function cargarJuegos()
 {
     $coleccionJuegos = [];
     $coleccionJuegos[0] = ["jugadorCruz" => "PIPO", "jugadorCirculo" => "ALEX", "puntosCruz" => 8, "puntosCirculo" => 3];
@@ -139,7 +139,7 @@ $coleccionJuegos = array(); //array para almacenar la informacion de los juegos
 $coleccionJugadores = array();
 
 //Inicialización de variables:
-$coleccionJuegos = cargaInicialJuegos();
+$coleccionJuegos = cargarJuegos();
 
 //Proceso:
 
