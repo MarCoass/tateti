@@ -16,8 +16,36 @@ include_once("tateti.php");
 /**************************************/
 
 /**
+ * Inicializa una estructura con datos con ejemplos de juegos y la retorna;
+ * Explicacion 3 - Punto 1
+ * @return array
+ */
+function cargarJuegos()
+{
+    /**
+     * array multidimensional $coleccionJuegos
+     */
+    $coleccionJuegos = [];
+    $coleccionJuegos[0] = ["jugadorCruz" => "PIPO", "jugadorCirculo" => "ALEX", "puntosCruz" => 8, "puntosCirculo" => 2];
+    $coleccionJuegos[1] = ["jugadorCruz" => "ALEX", "jugadorCirculo" => "JOSE", "puntosCruz" => 5, "puntosCirculo" => 0];
+    $coleccionJuegos[2] = ["jugadorCruz" => "YIYO", "jugadorCirculo" => "FRANCO", "puntosCruz" => 2, "puntosCirculo" => 3];
+    $coleccionJuegos[3] = ["jugadorCruz" => "TOMAS", "jugadorCirculo" => "FERNANDO", "puntosCruz" => 4, "puntosCirculo" => 1];
+    $coleccionJuegos[4] = ["jugadorCruz" => "MATIAS", "jugadorCirculo" => "FER", "puntosCruz" => 2, "puntosCirculo" => 6];
+    $coleccionJuegos[5] = ["jugadorCruz" => "MAJO", "jugadorCirculo" => "PIPO", "puntosCruz" => 3, "puntosCirculo" => 1];
+    $coleccionJuegos[6] = ["jugadorCruz" => "ALBERTO", "jugadorCirculo" => "TATA", "puntosCruz" => 0, "puntosCirculo" => 7];
+    $coleccionJuegos[7] = ["jugadorCruz" => "YIYO", "jugadorCirculo" => "SONA", "puntosCruz" => 3, "puntosCirculo" => 3];
+    $coleccionJuegos[8] = ["jugadorCruz" => "ALEX", "jugadorCirculo" => "PANCHO", "puntosCruz" => 3, "puntosCirculo" => 4];
+    $coleccionJuegos[9] = ["jugadorCruz" => "RAUL", "jugadorCirculo" => "NACHO", "puntosCruz" => 6, "puntosCirculo" => 1];
+
+
+    return $coleccionJuegos;
+}
+
+
+
+/**
  * Muestra todas las opciones del menu en la pantalla, solicita una opcion valida y retorna el valor.
- * (Explicacion 3, punto 2).
+ * Explicacion 3 - punto 2
  * @return int
  */
 function seleccionarOpcion()
@@ -25,8 +53,8 @@ function seleccionarOpcion()
     /**
      * int $opcion
      */
-    do {
-        echo " MENU: 
+
+    echo " MENU: 
         1)Jugar al tateti.
         2)Mostrar un juego.
         3)Mostrar el primer juego ganador.
@@ -35,10 +63,62 @@ function seleccionarOpcion()
         6)Mostrar listado de juegos ordenado por jugador O.
         7)Salir.
     Ingrese una opcion: ";
-        $opcion = trim(fgets(STDIN));
-    } while ($opcion > 7 || $opcion < 1);
+    $opcion = numeroEntre(1, 7);
     return $opcion;
 }
+
+/**
+ * función que solicite al usuario un número entre un rango de valores. Si el número
+ * ingresado por el usuario no es válido, la función vuelve a pedirlo.
+ * Explicacion 3 - Punto 3
+ * @param int $min
+ * @param int $max
+ * @return int
+ */
+function numeroEntre($min, $max)
+{
+    /**
+     * int $numero
+     */
+    $numero = trim(fgets(STDIN));
+    while (!is_int($numero) && ($numero < $min   || $numero > $max)) {
+        echo "Ingrese un numero entre: " . $min . " y " . $max . ": ";
+        $numero = trim(fgets(STDIN));
+    };
+    return $numero;
+}
+
+/**
+ * función que dado un juego, muestre en pantalla los datos del juego.
+ * Explicacion 3 - Punto 4
+ * @param array $juego
+ * @param int $numJuego
+ */
+function mostrarJuegoPorNumero($juego, $numJuego)
+{
+    /**
+     * string $resultado
+     * string $textoResultado
+     */
+
+    $resultado = resultado($juego);
+
+    if ($resultado == "X") {
+        $textoResultado = "(gano X)";
+    } elseif ($resultado == "E") {
+        $textoResultado = "(gano O)";
+    } else {
+        $textoResultado = "(empate)";
+    }
+
+    echo "    ***********************************
+    Juego TATETI: " . $numJuego . " " . $textoResultado . "
+    Jugador X: " . $juego["jugadorCruz"] . " obtuvo " . $juego["puntosCruz"] . " puntos.
+    Jugador O: " . $juego["jugadorCirculo"] . " obtuvo " . $juego["puntosCirculo"] . " puntos.
+    ***********************************\n";
+}
+
+
 
 
 /**
@@ -65,60 +145,9 @@ function resultado($juego)
     return $resultado;
 }
 
-/**
- * Dado un numero solicitado al usuario, muestra por pantalla la informacion de dicho juego.
- * @param array $coleccionJuegos
- * @param int $numJuegos
- */
-function mostrarJuegoPorNumero($coleccionJuegos, $numJuego)
-{
-    /**
-     * ERROR CUANDO SE INGRESA UN NUMERO DE JUEGO QUE NO EXISTE --> usar funcion de tateti.php solicitarNumeroEntre($min, $max)
-     * array $juegoBuscado
-     * string $resultado
-     * string $textoResultado
-     */
-
-    $juegoBuscado = $coleccionJuegos[$numJuego];
-    $resultado = resultado($juegoBuscado);
-
-    if ($resultado == "X") {
-        $textoResultado = "(gano X)";
-    } elseif ($resultado == "E") {
-        $textoResultado = "(gano O)";
-    } else {
-        $textoResultado = "(empate)";
-    }
-
-    echo "Juego TATETI: " . $numJuego . " " . $textoResultado . "
-    Jugador X: " . $juegoBuscado["jugadorCruz"] . " obtuvo " . $juegoBuscado["puntosCruz"] . " puntos.
-    Jugador O: " . $juegoBuscado["jugadorCirculo"] . " obtuvo " . $juegoBuscado["puntosCirculo"] . " puntos.\n";
-}
-
-/**
- * Inicializa una estructura con datos con ejemplos de juegos y la retorna;
- * @return array
- */
-function cargarJuegos()
-{
-    /**
-     * array multidimensional $coleccionJuegos
-     */
-    $coleccionJuegos = [];
-    $coleccionJuegos[0] = ["jugadorCruz" => "PIPO", "jugadorCirculo" => "ALEX", "puntosCruz" => 8, "puntosCirculo" => 2];
-    $coleccionJuegos[1] = ["jugadorCruz" => "ALEX", "jugadorCirculo" => "JOSE", "puntosCruz" => 5, "puntosCirculo" => 0];
-    $coleccionJuegos[2] = ["jugadorCruz" => "YIYO", "jugadorCirculo" => "FRANCO", "puntosCruz" => 2, "puntosCirculo" => 3];
-    $coleccionJuegos[3] = ["jugadorCruz" => "TOMAS", "jugadorCirculo" => "FERNANDO", "puntosCruz" => 4, "puntosCirculo" => 1];
-    $coleccionJuegos[4] = ["jugadorCruz" => "MATIAS", "jugadorCirculo" => "FER", "puntosCruz" => 2, "puntosCirculo" => 6];
-    $coleccionJuegos[5] = ["jugadorCruz" => "MAJO", "jugadorCirculo" => "PIPO", "puntosCruz" => 3, "puntosCirculo" => 1];
-    $coleccionJuegos[6] = ["jugadorCruz" => "ALBERTO", "jugadorCirculo" => "TATA", "puntosCruz" => 0, "puntosCirculo" => 7];
-    $coleccionJuegos[7] = ["jugadorCruz" => "YIYO", "jugadorCirculo" => "SONA", "puntosCruz" => 3, "puntosCirculo" => 3];
-    $coleccionJuegos[8] = ["jugadorCruz" => "ALEX", "jugadorCirculo" => "PANCHO", "puntosCruz" => 3, "puntosCirculo" => 4];
-    $coleccionJuegos[9] = ["jugadorCruz" => "RAUL", "jugadorCirculo" => "NACHO", "puntosCruz" => 6, "puntosCirculo" => 1];
 
 
-    return $coleccionJuegos;
-}
+
 
 /**
  * Solicita un nombre al usuario y muestra por pantalla el primer juego ganado por dicho jugador.
@@ -380,9 +409,11 @@ do {
             $coleccionJuegos[count($coleccionJuegos)] = $juego;
             break;
         case 2:
-            echo "Ingrese un numero de juego: ";
-            $numJuego = trim(fgets(STDIN));
-            mostrarJuegoPorNumero($coleccionJuegos, $numJuego);
+            $cantJuegos = count($coleccionJuegos);
+            echo "Ingrese un numero entre: 1 y " . $cantJuegos . ": ";
+            $numero = numeroEntre(1, $cantJuegos);
+            $juegoBuscado = $coleccionJuegos[$numero - 1];
+            mostrarJuegoPorNumero($juegoBuscado, $numero);
             break;
         case 3:
             //mostrar el primer juego ganador
