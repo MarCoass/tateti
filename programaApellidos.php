@@ -6,7 +6,6 @@ include_once("tateti.php");
 /**************************************/
 
 /* Apellido, Nombre. Legajo. Carrera. mail. Usuario Github */
-/* ... COMPLETAR ... */
 
 /* Apablaza Tomas FAI-2640, TUDW, tomas.apablaza@est.fi.uncoma.edu.ar, Hakaiq
 * Coassin Fernandez Martina, FAI-2542, TUDW, martina.coassin@est.fi.uncoma.edu.ar, MarCoass 
@@ -67,6 +66,8 @@ function seleccionarOpcion()
     return $opcion;
 }
 
+
+
 /**
  * función que solicite al usuario un número entre un rango de valores. Si el número
  * ingresado por el usuario no es válido, la función vuelve a pedirlo.
@@ -87,6 +88,8 @@ function numeroEntre($min, $max)
     };
     return $numero;
 }
+
+
 
 /**
  * función que dado un juego, muestre en pantalla los datos del juego.
@@ -119,8 +122,6 @@ function mostrarJuegoPorNumero($juego, $numJuego)
 }
 
 
-
-
 /**
  * Dado un juego ingresado por parametro, devuelve el resultado del mismo
  * X --> Gano Cruz
@@ -146,6 +147,23 @@ function resultado($juego)
 }
 
 
+
+/**
+ * Agrega un nuevo juego a la coleccion y retorna la coleccion actualizada.
+ * Explicacion 3 - Punto 5
+ * @param array $coleccionJuegos
+ * @param array $juego
+ * @return array 
+ */
+function agregarJuego($coleccionJuegos, $juego)
+{
+    /**
+     * int $cantJuegos
+     */
+    $cantJuegos = count($coleccionJuegos);
+    $coleccionJuegos[$cantJuegos] = $juego;
+    return $coleccionJuegos;
+}
 
 
 
@@ -184,8 +202,42 @@ function juegoGanador($coleccionJuegos, $jugadorPrimeraGanada)
         echo "El jugador " . strtolower($jugadorPrimeraGanada) . " no ganó ningun juego.";
     }
 }
+
+
+
+/**
+ * función que dada una colección de juegos y el nombre de un jugador, retorna el indice del primer juego ganado por este jugador
+ * o -1 en caso de que no haya ganado ningun juego.
+ * Explicacion 3 - Punto 6
+ * @param array $listadoJuegos
+ * @param string $nombre
+ * @return int
+ */
+
+
+
+/**
+ * Funcion que solicita un simbolo a un usuario y que valida el dato
+ * Explicacion 3 - Punto 8
+ * @return string
+ */
+function solicitarSimbolo()
+{
+    /**
+     * string $simbolo
+     */
+    do {
+        echo "Elija uno de los siguientes simbolos (X-O)";
+        $simbolo = strtoupper(trim(fgets(STDIN)));
+    } while ($simbolo != "X" && $simbolo != "O");
+
+    return $simbolo;
+}
+
+
 /**
  * Funcion que devuelve la cantidad de partidas ganadas sin importar el simbolo.
+ * Explicacion 3 - Punto 9
  * @param array $totalJuegosGanados
  * @return int
  */
@@ -207,8 +259,12 @@ function totalJuegosGanados($coleccionJuegos)
     }
     return $juegosGanados;
 }
+
+
+
 /**
  * Funcion que devuelve la cantidad de partidas ganadas por el simbolo elegido.
+ * Explicacion 3 - Punto 10
  * @param array $coleccionJuego
  * @param string $simbolo
  * @return int
@@ -231,6 +287,7 @@ function totalSimboloGanadas($coleccionJuegos, $simbolo)
     return $jugadorTotalGanadas;
 }
 
+
 /**
  * Funcion que calcula el porcentaje de victorias que representa un simbolo, del total de victorias.
  * @param array $coleccionJuegos
@@ -247,42 +304,12 @@ function porcentajeJuegosGanados($coleccionJuegos, $simbolo)
     return $porcentajeJuegosGanados;
 }
 
-/**
- * Funcion que solicita un simbolo a un usuario y que valida el dato
- * @return string
- */
-function solicitarSimbolo()
-{
-    /**
-     * string $simbolo
-     */
-    do {
-        echo "Elija uno de los siguientes simbolos (X-O)";
-        $simbolo = strtoupper(trim(fgets(STDIN)));
-    } while ($simbolo != "X" && $simbolo != "O");
 
-    return $simbolo;
-}
-
-/**
- * Agrega un nuevo juego a la coleccion y retorna la coleccion actualizada.
- * @param array $coleccionJuegos
- * @param array $juego
- * @return array 
- */
-function agregarJuego($coleccionJuegos, $juego)
-{
-    /**
-     * int $cantJuegos
-     */
-    $cantJuegos = count($coleccionJuegos);
-    $coleccionJuegos[$cantJuegos] = $juego;
-    return $coleccionJuegos;
-}
 
 /**
  * Función que dada la colección de juegos y el nombre de un jugador, retorna el resumen del jugador segun la explicacion 2, punto b.
  * Se llama desde el case 5 del programa principal.
+ * Explicacion 3 - Punto 7
  * @param array $coleccionJuegos
  * @param string $nombre
  * @return array
@@ -337,15 +364,31 @@ function resumenJugador($coleccionJuegos, $nombre)
  */
 function imprimirResumen($resumen)
 {
-    echo "***********************************
-Jugador: " . $resumen["nombre"] . ".
-Gano: " . $resumen["juegosGanados"] . " juegos.
-Perdio: " . $resumen["juegosPerdidos"] . " juegos. 
-Empato: " . $resumen["juegosEmpatados"] . " juegos. 
-Total de puntos acumulados: " . $resumen["puntosAcumulados"] . " puntos.
-***********************************
+    echo "   ***********************************
+    Jugador: " . $resumen["nombre"] . ".
+    Gano: " . $resumen["juegosGanados"] . " juegos.
+    Perdio: " . $resumen["juegosPerdidos"] . " juegos. 
+    Empato: " . $resumen["juegosEmpatados"] . " juegos. 
+    Total de puntos acumulados: " . $resumen["puntosAcumulados"] . " puntos.
+    ***********************************
                 ";
 }
+
+
+
+/**
+ * Funcion que ordena la coleccion de juegos alfabeticamente segun el jugador circulo.
+ * Explicacion 3 - Punto 11
+ * @param array $coleccionJuegos
+ */
+function ordenarJuegos($coleccionJuegos)
+{
+    //uasort ordena al array con una funcion de comparacion ya definida (cmp) y mantiene la asociacion de indices.
+    uasort($coleccionJuegos, 'cmp');
+    print_r($coleccionJuegos);
+}
+
+
 /**
  * Funcion de comparacion, compara alfabeticamente los nombres de los jugadorCirculo
  * @param array @juegoA
@@ -370,25 +413,22 @@ function cmp($juegoA, $juegoB)
     return $orden;
 }
 
-/**
- * Funcion que ordena la coleccion de juegos alfabeticamente segun el jugador circulo.
- * @param array $coleccionJuegos
- */
-function ordenarJuegos($coleccionJuegos)
-{
-    //uasort ordena al array con una funcion de comparacion ya definida (cmp) y mantiene la asociacion de indices.
-    uasort($coleccionJuegos, 'cmp');
-    print_r($coleccionJuegos);
-}
 
 /**************************************/
 /*********** PROGRAMA PRINCIPAL *******/
 /**************************************/
 
 //Declaración de variables:
-/**ENTERO $cantJuegos */
-$coleccionJuegos = array(); //array para almacenar la informacion de los juegos
-
+/**
+ * int $cantJuegos
+ * int $numero
+ * array $coleccionJuegos
+ * array $juego
+ * array $resumen
+ * string $jugadorPrimeraGanada
+ * string $simbolo
+ * string $nombre
+*/
 
 //Inicialización de variables:
 $coleccionJuegos = cargarJuegos();
@@ -405,28 +445,24 @@ do {
             //Se inicia un juego de tateti
             $juego = jugar();
             imprimirResultado($juego);
-            //Se almacena la informacion del juego en el array $coleccionJuegos
-            $coleccionJuegos[count($coleccionJuegos)] = $juego;
+            $coleccionJuegos = agregarJuego($coleccionJuegos, $juego);
             break;
         case 2:
             $cantJuegos = count($coleccionJuegos);
             echo "Ingrese un numero entre: 1 y " . $cantJuegos . ": ";
             $numero = numeroEntre(1, $cantJuegos);
-            $juegoBuscado = $coleccionJuegos[$numero - 1];
-            mostrarJuegoPorNumero($juegoBuscado, $numero);
+            $juego = $coleccionJuegos[$numero - 1];
+            mostrarJuegoPorNumero($juego, $numero);
             break;
         case 3:
             //mostrar el primer juego ganador
             echo "Ingrese el nombre del jugador a buscar: ";
             $jugadorPrimeraGanada = strtoupper(trim(fgets(STDIN)));
-
-
             juegoGanador($coleccionJuegos, $jugadorPrimeraGanada);
             break;
         case 4:
             //mostrar el porcentaje de juegos ganados
             $simbolo = solicitarSimbolo();
-
             echo $simbolo . " gano el " . round(porcentajeJuegosGanados($coleccionJuegos, $simbolo), 2) . "% de los juegos ganados.
             ";
             break;
