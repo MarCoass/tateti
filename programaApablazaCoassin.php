@@ -25,16 +25,16 @@ function cargarJuegos()
      * array multidimensional $coleccionJuegos
      */
     $coleccionJuegos = [];
-    $coleccionJuegos[0] = ["jugadorCruz" => "PIPO", "jugadorCirculo" => "ALEX", "puntosCruz" => 8, "puntosCirculo" => 2];
+    $coleccionJuegos[0] = ["jugadorCruz" => "PIPO", "jugadorCirculo" => "ALEX", "puntosCruz" => 8, "puntosCirculo" => 0];
     $coleccionJuegos[1] = ["jugadorCruz" => "ALEX", "jugadorCirculo" => "JOSE", "puntosCruz" => 5, "puntosCirculo" => 0];
-    $coleccionJuegos[2] = ["jugadorCruz" => "YIYO", "jugadorCirculo" => "FRANCO", "puntosCruz" => 2, "puntosCirculo" => 3];
-    $coleccionJuegos[3] = ["jugadorCruz" => "TOMAS", "jugadorCirculo" => "FERNANDO", "puntosCruz" => 4, "puntosCirculo" => 1];
-    $coleccionJuegos[4] = ["jugadorCruz" => "MATIAS", "jugadorCirculo" => "FER", "puntosCruz" => 2, "puntosCirculo" => 6];
-    $coleccionJuegos[5] = ["jugadorCruz" => "MAJO", "jugadorCirculo" => "PIPO", "puntosCruz" => 3, "puntosCirculo" => 1];
+    $coleccionJuegos[2] = ["jugadorCruz" => "YIYO", "jugadorCirculo" => "FRANCO", "puntosCruz" => 0, "puntosCirculo" => 3];
+    $coleccionJuegos[3] = ["jugadorCruz" => "TOMAS", "jugadorCirculo" => "FERNANDO", "puntosCruz" => 4, "puntosCirculo" => 0];
+    $coleccionJuegos[4] = ["jugadorCruz" => "MATIAS", "jugadorCirculo" => "FER", "puntosCruz" => 0, "puntosCirculo" => 6];
+    $coleccionJuegos[5] = ["jugadorCruz" => "MAJO", "jugadorCirculo" => "PIPO", "puntosCruz" => 3, "puntosCirculo" => 0];
     $coleccionJuegos[6] = ["jugadorCruz" => "ALBERTO", "jugadorCirculo" => "TATA", "puntosCruz" => 0, "puntosCirculo" => 7];
     $coleccionJuegos[7] = ["jugadorCruz" => "YIYO", "jugadorCirculo" => "SONA", "puntosCruz" => 3, "puntosCirculo" => 3];
-    $coleccionJuegos[8] = ["jugadorCruz" => "ALEX", "jugadorCirculo" => "PANCHO", "puntosCruz" => 3, "puntosCirculo" => 4];
-    $coleccionJuegos[9] = ["jugadorCruz" => "RAUL", "jugadorCirculo" => "NACHO", "puntosCruz" => 6, "puntosCirculo" => 1];
+    $coleccionJuegos[8] = ["jugadorCruz" => "ALEX", "jugadorCirculo" => "PANCHO", "puntosCruz" => 0, "puntosCirculo" => 4];
+    $coleccionJuegos[9] = ["jugadorCruz" => "RAUL", "jugadorCirculo" => "NACHO", "puntosCruz" => 6, "puntosCirculo" => 0];
 
 
     return $coleccionJuegos;
@@ -81,11 +81,7 @@ function numeroEntre($min, $max)
     /**
      * int $numero
      */
-    $numero = trim(fgets(STDIN));
-    while (!is_int($numero) && ($numero < $min   || $numero > $max)) {
-        echo "Ingrese un numero entre: " . $min . " y " . $max . ": ";
-        $numero = trim(fgets(STDIN));
-    };
+    $numero = solicitarNumeroEntre($min, $max) ;
     return $numero;
 }
 
