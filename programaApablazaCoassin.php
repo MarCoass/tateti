@@ -213,7 +213,7 @@ function solicitarSimbolo()
      * string $simbolo
      */
     do {
-        echo "Elija uno de los siguientes simbolos (X-O)";
+        echo "Elija uno de los siguientes simbolos (X-O): ";
         $simbolo = strtoupper(trim(fgets(STDIN)));
     } while ($simbolo != "X" && $simbolo != "O");
 
