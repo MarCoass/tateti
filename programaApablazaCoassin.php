@@ -419,15 +419,22 @@ function cmp($juegoA, $juegoB)
  */
 
 //Inicialización de variables:
-$coleccionJuegos = cargarJuegos();
+$coleccionJuegos = cargarJuegos(); //precarga de estructuras de juegos, explicacion 3 - punto 12a
 
 //Proceso:
 
-
+ /**Estructura repetitiva do while para repetir el menu mientras el usuario no ingrese la opcion 7 (salir)
+     * Explicacion 3 - punto 12b
+     */
 do {
 
     $opcion = seleccionarOpcion();
-
+/**
+ * Explicacion 3 - punto 12d
+ * Switch: es una estructura de control alternativa que permite comparar la misma variable con diferentes valores
+ * y ejecutar distintas partes del codigo segun a que valor corresponda. Se ejecutara lo que se encuentre dentro de un 
+ * case en el que la variable coincida con el valor de la expresion, hasta llegar a un break.
+ */
     switch ($opcion) {
         case 1:
             //Se inicia un juego de tateti
