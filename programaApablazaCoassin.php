@@ -15,7 +15,7 @@ include_once("tateti.php");
 /**************************************/
 
 /**
- * Inicializa una estructura con datos con ejemplos de juegos y la retorna;
+ * Inicializa una estructura de datos con ejemplos de juegos y la retorna;
  * Explicacion 3 - Punto 1
  * @return array
  */
@@ -25,13 +25,13 @@ function cargarJuegos()
      * array multidimensional $coleccionJuegos
      */
     $coleccionJuegos = [];
-    $coleccionJuegos[0] = ["jugadorCruz" => "PIPO", "jugadorCirculo" => "ALEX", "puntosCruz" => 8, "puntosCirculo" => 0];
+    $coleccionJuegos[0] = ["jugadorCruz" => "PIPO", "jugadorCirculo" => "ALEX", "puntosCruz" => 4, "puntosCirculo" => 0];
     $coleccionJuegos[1] = ["jugadorCruz" => "ALEX", "jugadorCirculo" => "JOSE", "puntosCruz" => 5, "puntosCirculo" => 0];
     $coleccionJuegos[2] = ["jugadorCruz" => "YIYO", "jugadorCirculo" => "FRANCO", "puntosCruz" => 0, "puntosCirculo" => 3];
     $coleccionJuegos[3] = ["jugadorCruz" => "TOMAS", "jugadorCirculo" => "FERNANDO", "puntosCruz" => 4, "puntosCirculo" => 0];
-    $coleccionJuegos[4] = ["jugadorCruz" => "MATIAS", "jugadorCirculo" => "FER", "puntosCruz" => 0, "puntosCirculo" => 6];
+    $coleccionJuegos[4] = ["jugadorCruz" => "MATIAS", "jugadorCirculo" => "FER", "puntosCruz" => 0, "puntosCirculo" => 5];
     $coleccionJuegos[5] = ["jugadorCruz" => "MAJO", "jugadorCirculo" => "PIPO", "puntosCruz" => 3, "puntosCirculo" => 0];
-    $coleccionJuegos[6] = ["jugadorCruz" => "ALBERTO", "jugadorCirculo" => "TATA", "puntosCruz" => 0, "puntosCirculo" => 7];
+    $coleccionJuegos[6] = ["jugadorCruz" => "ALBERTO", "jugadorCirculo" => "TATA", "puntosCruz" => 0, "puntosCirculo" => 2];
     $coleccionJuegos[7] = ["jugadorCruz" => "YIYO", "jugadorCirculo" => "SONA", "puntosCruz" => 3, "puntosCirculo" => 3];
     $coleccionJuegos[8] = ["jugadorCruz" => "ALEX", "jugadorCirculo" => "PANCHO", "puntosCruz" => 0, "puntosCirculo" => 4];
     $coleccionJuegos[9] = ["jugadorCruz" => "RAUL", "jugadorCirculo" => "NACHO", "puntosCruz" => 6, "puntosCirculo" => 0];
@@ -69,7 +69,7 @@ function seleccionarOpcion()
 
 
 /**
- * función que solicite al usuario un número entre un rango de valores. Si el número
+ * Función que solicita al usuario un número entre un rango de valores. Si el número
  * ingresado por el usuario no es válido, la función vuelve a pedirlo.
  * Explicacion 3 - Punto 3
  * @param int $min
@@ -81,7 +81,7 @@ function numeroEntre($min, $max)
     /**
      * int $numero
      */
-    $numero = solicitarNumeroEntre($min, $max) ;
+    $numero = solicitarNumeroEntre($min, $max);
     return $numero;
 }
 
@@ -162,15 +162,6 @@ function agregarJuego($listadoJuegos, $juego)
 }
 
 
-
-/**
- * Solicita un nombre al usuario y muestra por pantalla el primer juego ganado por dicho jugador.
- * @param array $listadoJuegos
- * @param string $jugadorPrimeraGanada
- */
-
-
-
 /**
  * función que dada una colección de juegos y el nombre de un jugador, retorna el indice del primer juego ganado por este jugador
  * o -1 en caso de que no haya ganado ningun juego.
@@ -188,23 +179,22 @@ function indiceJuegoGanador($listadoJuegos, $jugadorPrimeraGanada)
      */
 
     $acum = count($listadoJuegos);
+    $i = 0;
     $primerGanador = true;
-
     do {
 
-        for ($i = 0; $i <= $acum - 1; $i++) {
-            $juegoBuscado = $listadoJuegos[$i];
+        $juegoBuscado = $listadoJuegos[$i];
 
-            if (($juegoBuscado["jugadorCruz"] == $jugadorPrimeraGanada) || ($juegoBuscado["jugadorCirculo"] == $jugadorPrimeraGanada)) {
-                if (((($juegoBuscado["puntosCruz"] > $juegoBuscado["puntosCirculo"]) & $juegoBuscado["jugadorCruz"] == $jugadorPrimeraGanada)) || ((($juegoBuscado["puntosCirculo"]) > $juegoBuscado["puntosCruz"]) & ($juegoBuscado["jugadorCirculo"] == $jugadorPrimeraGanada))) {
+        if (($juegoBuscado["jugadorCruz"] == $jugadorPrimeraGanada) || ($juegoBuscado["jugadorCirculo"] == $jugadorPrimeraGanada)) {
+            if (((($juegoBuscado["puntosCruz"] > $juegoBuscado["puntosCirculo"]) & $juegoBuscado["jugadorCruz"] == $jugadorPrimeraGanada)) || ((($juegoBuscado["puntosCirculo"]) > $juegoBuscado["puntosCruz"]) & ($juegoBuscado["jugadorCirculo"] == $jugadorPrimeraGanada))) {
 
-                    $juegoGanado = $i;
-                    $primerGanador = false;
-                }
-            } else {
-                $juegoGanado = -1;
+                $juegoGanado = $i;
+                $primerGanador = false;
             }
+        } else {
+            $juegoGanado = -1;
         }
+        $i++;
     } while ($primerGanador && $i < $acum);
 
     return $juegoGanado;
